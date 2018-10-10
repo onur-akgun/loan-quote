@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.com/hansonhsc/loan-quote.svg?branch=master)](https://travis-ci.com/hansonhsc/loan-quote)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 # Loan Quote Calculator
 
 The loan quote calculator is an example application that demonstrates how to create a rate calculation
@@ -19,7 +22,7 @@ and the total repayment amount.
 market does not have sufficient offers from lenders to satisfy the loan then the system would inform the borrower that
 it is not possible to provide a quote at that time.
 
-### Example Usage
+### Example
 
 ```bash
 > java -jar loan-quote.jar market.csv 1500
