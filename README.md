@@ -25,7 +25,7 @@ it is not possible to provide a quote at that time.
 ### Example
 
 ```bash
-> java -jar loan-quote.jar market.csv 1500
+> java -jar loan-quote.jar market.csv 1000
 Requested amount: £1000
 Rate: 7.0%
 Monthly repayment: £30.78
