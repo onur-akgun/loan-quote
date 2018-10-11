@@ -1,3 +1,5 @@
+![Loan Quote Calculator](images/calculator.jpg)
+
 [![Build Status](https://travis-ci.com/hansonhsc/loan-quote.svg?branch=master)](https://travis-ci.com/hansonhsc/loan-quote)
 [![codecov](https://codecov.io/gh/hansonhsc/loan-quote/branch/master/graph/badge.svg)](https://codecov.io/gh/hansonhsc/loan-quote/branch/master)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
