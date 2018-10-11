@@ -48,10 +48,10 @@ formula:
    <img src="images/monthly_repayment.gif">
    </p>
    where:
-      - c = monthly payment
-      - P = principal, i.e. loan amount
-      - r = monthly interest rate, i.e. annual interest rate / 12
-      - n = number of payment periods, i.e. 36
+   - c = monthly payment
+   - P = principal, i.e. loan amount
+   - r = monthly interest rate, i.e. annual interest rate / 12
+   - n = number of payment periods, i.e. 36
 
 0. The monthly repayment displayed is then the sum of monthly repayment to each lender. This number is rounded up/down
 to the nearest penny
