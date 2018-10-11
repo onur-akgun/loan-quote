@@ -42,6 +42,8 @@ public class LoanQuoteApplication {
                 .build()
                 .parse();
 
+        // TODO: catch malformed CSV
+
         // create a loan quote calculator that can get as many quotes as we like
         final LoanQuoteCalculator loanQuoteCalculator = new LoanQuoteCalculator(lenders);
 
