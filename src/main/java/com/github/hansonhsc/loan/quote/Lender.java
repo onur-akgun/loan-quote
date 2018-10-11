@@ -18,11 +18,23 @@ public class Lender {
         return name;
     }
 
+    public void setName(final String name) {
+        this.name = name;
+    }
+
     public BigDecimal getRate() {
         return rate;
     }
 
+    public void setRate(final BigDecimal rate) {
+        this.rate = rate;
+    }
+
     public int getAmount() {
         return amount;
+    }
+
+    public void setAmount(final int amount) {
+        this.amount = amount;
     }
 }
