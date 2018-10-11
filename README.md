@@ -45,7 +45,7 @@ amount the lender can lend out
 [amortized interest](https://en.wikipedia.org/wiki/Compound_interest#Exact_formula_for_monthly_payment), using this
 formula:
    <p align="center">
-   <img src="file:///home/hansonc/work/loan-quote/images/monthly_repayment.gif">
+   <img src="monthly_repayment.gif">
    </p>
    where:
       - c = monthly payment
@@ -89,19 +89,19 @@ rate by 12.
 The principal owed next month is then the principal owed this month plus the interest calculated, minus the payment made:
 
 <p align="center">
-<img src="file:///home/hansonc/work/loan-quote/images/monthly_principal.gif">
+<img src="monthly_principal.gif">
 </p>
 
 To simplify things a little bit later, let's introduce a variable **m**, the monthly multiplier:
 
 <p align="center">
-<img src="file:///home/hansonc/work/loan-quote/images/monthly_multiplier.gif">
+<img src="monthly_multiplier.gif">
 </p>
 
 This then means:
 
 <p align="center">
-<img src="file:///home/hansonc/work/loan-quote/images/monthly_principal_simplified.gif">
+<img src="monthly_principal_simplified.gif">
 </p>
 
 #### How the principal changes month to month
@@ -109,13 +109,13 @@ This then means:
 The first 3 payment periods looks like this:
 
 <p align="center">
-<img src="file:///home/hansonc/work/loan-quote/images/principal_sequence.gif">
+<img src="principal_sequence.gif">
 </p>
 
 Looking at how sequence progresses from *P<sub>3</sub>*, we can then define *P<sub>i</sub>* as:
 
 <p align="center">
-<img src="file:///home/hansonc/work/loan-quote/images/principal_sum_of_m.gif">
+<img src="principal_sum_of_m.gif">
 </p>
 
 We can calculate the principal owed in a given month by the above formula.
@@ -125,25 +125,25 @@ We can calculate the principal owed in a given month by the above formula.
 Substituting *T* as *i* for the above:
 
 <p align="center">
-<img src="file:///home/hansonc/work/loan-quote/images/end_principal.gif">
+<img src="end_principal.gif">
 </p>
 
 But recall that *P<sub>T</sub> = 0*, therefore we have the following polynomial:
 
 <p align="center">
-<img src="file:///home/hansonc/work/loan-quote/images/polynomial_with_sum.gif">
+<img src="polynomial_with_sum.gif">
 </p>
 
 Using the [formula for the sum of the first *n* terms of a geometric series](https://en.wikipedia.org/wiki/Geometric_series#Formula):
 
 <p align="center">
-<img src="file:///home/hansonc/work/loan-quote/images/geometric_series.gif">
+<img src="geometric_series.gif">
 </p>
 
 We can simplify our polynomial:
 
 <p align="center">
-<img src="file:///home/hansonc/work/loan-quote/images/simplified_polynomial.gif">
+<img src="simplified_polynomial.gif">
 </p>
 
 #### Solving the polynomial to find the interest rate
@@ -152,25 +152,25 @@ To solve the polynomial, we can use the [Newton-Raphson method](https://en.wikip
 given a function:
 
 <p align="center">
-<img src="file:///home/hansonc/work/loan-quote/images/function.gif">
+<img src="function.gif">
 </p>
 
 It can find successively better approximations of *x* using the function's derivative *f'*:
 
 <p align="center">
-<img src="file:///home/hansonc/work/loan-quote/images/newton_raphson_1.gif">
+<img src="newton_raphson_1.gif">
 </p>
 
 As the process is repeated:
 
 <p align="center">
-<img src="file:///home/hansonc/work/loan-quote/images/newton_raphson_n.gif">
+<img src="newton_raphson_n.gif">
 </p>
 
 Using the polynomial that we got earlier, we can find its derivative:
 
 <p align="center">
-<img src="file:///home/hansonc/work/loan-quote/images/derivative.gif">
+<img src="derivative.gif">
 </p>
 
 Then we can use Newton-Raphson to find *m* and ultimately the annual interest rate by the following pseudo-code:
