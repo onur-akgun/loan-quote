@@ -21,28 +21,23 @@ public class LoanQuoteApplication {
         final String loanAmountAsString = args[1];
 
         // first argument is market.csv, ensure that it is a file
-        final File marketFile = new File(marketFilePath);
+        final FileReader marketFileReader;
 
-        if (!marketFile.isFile()) {
+        try {
+            marketFileReader = new FileReader(marketFilePath);
+        } catch (FileNotFoundException e) {
             printError("Invalid market file: " + marketFilePath);
 
             return;
         }
 
         // parse the market.csv
-        final List<Lender> lenders;
 
-        try {
-            //noinspection unchecked
-            lenders = new CsvToBeanBuilder(new FileReader(marketFile))
-                    .withType(Lender.class)
-                    .build()
-                    .parse();
-        } catch (FileNotFoundException e) {
-            printError("Invalid market file: " + marketFilePath);
-
-            return;
-        }
+        //noinspection unchecked
+        final List<Lender> lenders = new CsvToBeanBuilder(marketFileReader)
+                .withType(Lender.class)
+                .build()
+                .parse();
 
         // create a loan quote calculator that can get as many quotes as we like
         final LoanQuoteCalculator loanQuoteCalculator = new LoanQuoteCalculator(lenders);
