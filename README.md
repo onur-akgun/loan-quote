@@ -37,7 +37,7 @@ Repayment amounts are displayed to 2 decimal places and the rate of the loan is 
 
 ## How is the quote calculated?
 
-0. The list of lenders is read from the CSV file
+1. The list of lenders is read from the CSV file
 0. Based on the requested loan amount, we find the lenders that will provide the lowest rates
 0. Once the lenders are found, we calculate how much we need to borrow from each lender, which might not be the full
 amount the lender can lend out
@@ -56,7 +56,7 @@ formula:
 0. The monthly repayment displayed is then the sum of monthly repayment to each lender. This number is rounded up/down
 to the nearest penny
 0. The total repayment is the product of total repayment periods (36) and the total unrounded monthly repayment.
- - *Note that the total repayment amount might not be exactly 36 times of the displayed monthly repayment amount. When
+     - *Note that the total repayment amount might not be exactly 36 times of the displayed monthly repayment amount. When
 issuing the amortized schedule, care needs to be taken in the last month to reconcile any overpayments or underpayments
 each month due to extra or missing fractional pennies.*
 0. The displayed loan rate is then calculated from the unrounded monthly repayment amount, loan amount and number of
