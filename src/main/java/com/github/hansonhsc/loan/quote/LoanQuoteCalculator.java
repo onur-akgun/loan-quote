@@ -26,7 +26,7 @@ public class LoanQuoteCalculator {
         return lenders;
     }
 
-    public LoanQuote getQuote(final int loanAmount) {
+    public LoanQuote getQuote(final int loanAmount) throws InsufficientLendersException {
         final Map<Lender, Integer> loans = getLendersForLoan(loanAmount);
 
         // calculate monthly repayment for each individual lender
@@ -58,7 +58,7 @@ public class LoanQuoteCalculator {
         );
     }
 
-    private Map<Lender, Integer> getLendersForLoan(final int loanAmount) {
+    private Map<Lender, Integer> getLendersForLoan(final int loanAmount) throws InsufficientLendersException {
         final Map<Lender, Integer> result = new HashMap<>();
 
         int remainingLoanAmount = loanAmount;
@@ -77,6 +77,6 @@ public class LoanQuoteCalculator {
             remainingLoanAmount -= lender.getAmount();
         }
 
-        throw new RuntimeException("Not enough lenders"); // TODO: choose the right exception type
+        throw new InsufficientLendersException("Insufficient offers from lenders to satisfy the loan. Try a smaller loan amount.");
     }
 }
