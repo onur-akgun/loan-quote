@@ -1,5 +1,7 @@
 package com.github.hansonhsc.loan.quote;
 
+import com.github.hansonhsc.loan.AmortizedLoan;
+
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.HashMap;

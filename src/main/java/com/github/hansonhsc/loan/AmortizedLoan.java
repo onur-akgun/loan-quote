@@ -1,4 +1,4 @@
-package com.github.hansonhsc.loan.quote;
+package com.github.hansonhsc.loan;
 
 import java.math.BigDecimal;
 import java.util.function.Function;
