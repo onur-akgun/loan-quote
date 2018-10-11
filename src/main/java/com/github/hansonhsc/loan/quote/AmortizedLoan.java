@@ -4,7 +4,7 @@ import java.util.function.Function;
 
 public final class AmortizedLoan {
     private static final double GUESSED_INTEREST_RATE = 0.10;
-    public static final double EPSILON = 0.00000001;
+    private static final double EPSILON = 0.00000001;
 
     public static double getEstimatedAnnualInterestRate(final double principal, final int term, final double monthlyPayment) {
         final double guessedMonthlyInterestRate = GUESSED_INTEREST_RATE / 12.0;
