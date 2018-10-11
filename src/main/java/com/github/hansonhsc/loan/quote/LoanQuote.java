@@ -22,7 +22,7 @@ public class LoanQuote {
     }
 
     public BigDecimal getRate() {
-        return new BigDecimal(AmortizedLoan.getAnnualInterestRate(loanAmount, REPAYMENT_MONTHS, getMonthlyRepayment().doubleValue()) * 100);
+        return new BigDecimal(AmortizedLoan.getEstimatedAnnualInterestRate(loanAmount, REPAYMENT_MONTHS, getMonthlyRepayment().doubleValue()) * 100);
     }
 
     private static BigDecimal getMonthlyRepayment(final int individualLoanAmount, final BigDecimal monthlyLoanRate) {
