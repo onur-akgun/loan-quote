@@ -3,13 +3,12 @@ package com.github.hansonhsc.loan;
 import java.math.BigDecimal;
 import java.util.function.Function;
 
-import static java.math.BigDecimal.ROUND_UP;
 import static java.math.RoundingMode.HALF_UP;
 
 public final class AmortizedLoan {
     private static final double GUESSED_INTEREST_RATE = 0.10;
     private static final double EPSILON = 0.00000001;
-    public static final int SCALE = 10;
+    private static final int SCALE = 10;
 
     public static double getEstimatedAnnualInterestRate(final double principal, final int term, final double monthlyPayment) {
         final double guessedMonthlyInterestRate = GUESSED_INTEREST_RATE / 12;
@@ -63,9 +62,6 @@ public final class AmortizedLoan {
                                 )
                         ),
                         SCALE, HALF_UP
-                )
-                // round up to nearest penny, rounding up to ensure we don't lose fractional pennies every month
-                // better for the customer to pay a few pennies too much than us having a shortfall over many lenders
-                .setScale(2, ROUND_UP);
+                );
     }
 }

@@ -8,6 +8,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static java.math.BigDecimal.ROUND_HALF_UP;
+import static java.math.BigDecimal.ROUND_UP;
+
 public class LoanQuoteCalculator {
     private static final int REPAYMENT_MONTHS = 36;
 
@@ -48,15 +51,25 @@ public class LoanQuoteCalculator {
                 // there must be at least one lender, so this is impossible
                 .orElseThrow(() -> new IllegalStateException("getLendersForLoan should never return empty map"));
 
+        // calculate total repayment based on non-rounded monthly repayment
         final BigDecimal totalRepayment = monthlyRepayment.multiply(new BigDecimal(REPAYMENT_MONTHS));
 
+        // estimate interest rate based on monthly repayment
         final double rate = AmortizedLoan.getEstimatedAnnualInterestRate(loanAmount, REPAYMENT_MONTHS, monthlyRepayment.doubleValue()) * 100;
 
         return new LoanQuote(
                 loanAmount,
-                new BigDecimal(rate).setScale(1, BigDecimal.ROUND_HALF_UP), // round rate to one decimal place
-                monthlyRepayment,
-                totalRepayment
+
+                // round annual interest rate to nearest one decimal place
+                new BigDecimal(rate).setScale(1, ROUND_HALF_UP),
+
+                // round monthly payment to nearest penny
+                // customer might pay fractional pennies more/less every month
+                // but the last payment can be adjusted to reflect this
+                monthlyRepayment.setScale(2, ROUND_HALF_UP),
+
+                // round up to ensure we do not lose fractional pennies, better for the customers to lose out than us having a shortfall
+                totalRepayment.setScale(2, ROUND_UP)
         );
     }
 
