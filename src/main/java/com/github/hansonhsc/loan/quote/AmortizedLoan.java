@@ -1,10 +1,15 @@
 package com.github.hansonhsc.loan.quote;
 
+import java.math.BigDecimal;
 import java.util.function.Function;
+
+import static java.math.BigDecimal.ROUND_UP;
+import static java.math.RoundingMode.HALF_UP;
 
 public final class AmortizedLoan {
     private static final double GUESSED_INTEREST_RATE = 0.10;
     private static final double EPSILON = 0.00000001;
+    public static final int SCALE = 10;
 
     public static double getEstimatedAnnualInterestRate(final double principal, final int term, final double monthlyPayment) {
         final double guessedMonthlyInterestRate = GUESSED_INTEREST_RATE / 12.0;
@@ -37,5 +42,30 @@ public final class AmortizedLoan {
         }
 
         return current;
+    }
+
+    public static BigDecimal getMonthlyRepayment(final BigDecimal principal, final BigDecimal annualInterestRate, final int numberOfPaymentPeriods) {
+        final BigDecimal monthlyInterestRate = annualInterestRate.divide(new BigDecimal(12), SCALE, HALF_UP);
+
+        // c = (P * r) / (1-(1/(1+r)^n))
+        // where:
+        // c = monthly repayment
+        // P = principal
+        // r = monthly interest rate
+        // n = number of payment periods
+
+        return principal.multiply(monthlyInterestRate)
+                .divide(
+                        BigDecimal.ONE.subtract(
+                                BigDecimal.ONE.divide(
+                                        BigDecimal.ONE.add(monthlyInterestRate).pow(numberOfPaymentPeriods),
+                                        SCALE, HALF_UP
+                                )
+                        ),
+                        SCALE, HALF_UP
+                )
+                // round up to nearest penny, rounding up to ensure we don't lose fractional pennies every month
+                // better for the customer to pay a few pennies too much than us having a shortfall over many lenders
+                .setScale(2, ROUND_UP);
     }
 }

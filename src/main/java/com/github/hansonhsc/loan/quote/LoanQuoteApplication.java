@@ -7,8 +7,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.List;
 
-import static java.math.BigDecimal.ROUND_HALF_UP;
-
 public class LoanQuoteApplication {
     public static void main(final String[] args) {
         // validate number of arguments
@@ -61,9 +59,9 @@ public class LoanQuoteApplication {
 
     private static void printQuote(final LoanQuote quote) {
         print("Requested amount: £" + quote.getLoanAmount());
-        print("Rate: " + quote.getRate().setScale(1, ROUND_HALF_UP) + "%");
-        print("Monthly repayment: £" + quote.getMonthlyRepayment().setScale(2, ROUND_HALF_UP));
-        print("Total repayment: £" + quote.getTotalRepayment().setScale(2, ROUND_HALF_UP));
+        print("Rate: " + quote.getRate() + "%");
+        print("Monthly repayment: £" + quote.getMonthlyRepayment());
+        print("Total repayment: £" + quote.getTotalRepayment());
     }
 
     private static void printError(final String message) {
