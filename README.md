@@ -189,6 +189,21 @@ monthlyInterestRate = m - 1;
 annualInterestRate = 12 * monthlyInterestRate;
 ```
 
+## Assumptions made
+
+* all rates specified in CSV are annual interest rates as decimal, i.e. 0.10 = 10%
+* the displayed rate in the output is annual interest rate for the entire loan amount
+* all input CSV has the appropriate headers
+* the column *Available* in the CSV specifies the amount available for loan in pounds sterling (£)
+* all loans are amortized
+* interest is compounded monthly
+* it is possible to lend only part of the amount available from a particular lender
+* lenders expect monthly repayment of capital and interest
+* lenders are not recycling their monthly repayments - if they are, we can potentially use low rate lenders to
+pay off high rate lenders to reduce the interest every month
+* it is possible to reconcile fractional pennies that were overpaid or underpaid each month in the last month
+* we are not charging any fees on top of paying back lenders (quite unrealistic)
+
 Credits
 -------
 - [Compound interest monthly repayment](https://en.wikipedia.org/wiki/Compound_interest#Exact_formula_for_monthly_payment)
@@ -197,7 +212,6 @@ Credits
 - [Newton-Raphson method](https://en.wikipedia.org/wiki/Newton%27s_method)
 - [Interest rate calculator](https://financialmentor.com/calculator/interest-rate-calculator)
 - [Online LaTeX editor](https://www.codecogs.com/latex/eqneditor.php)
-
 
 License
 -------
