@@ -11,11 +11,26 @@ import java.util.Map;
 import static java.math.BigDecimal.ROUND_HALF_UP;
 import static java.math.BigDecimal.ROUND_UP;
 
+/**
+ * Given a list of lenders, produces quotes on demand using lenders with the lowest rates
+ */
 public class LoanQuoteCalculator {
+    /**
+     * Total number of repayment months over the entire loan
+     */
     private static final int REPAYMENT_MONTHS = 36;
 
+    /**
+     * the lenders available for loans
+     */
     private final List<Lender> lenders;
 
+    /**
+     * Constructs a calculator with the specified lenders
+     *
+     * @param lenders list of lenders. Note that this will be mutated: it will be sorted by rate in ascending order,
+     *                then by amount in descending order
+     */
     public LoanQuoteCalculator(final List<Lender> lenders) {
         // sort lender based on cheapest rate and the largest amount
         this.lenders = lenders;
@@ -27,10 +42,21 @@ public class LoanQuoteCalculator {
         });
     }
 
+    /**
+     * Returns the lenders available for loans
+     * @return the lenders available for loans
+     */
     public Collection<Lender> getLenders() {
         return lenders;
     }
 
+    /**
+     * Returns a quote based on the specified loan amount, using the lowest rated lenders possible
+     * @param loanAmount the loan amount requested in pounds sterling
+     * @return the loan quote containing repayment information and the interest rate of the loan
+     * @throws InsufficientLendersException thrown when there is not sufficient funding from the list of lenders
+     * to satisfy the requested loan amount
+     */
     public LoanQuote getQuote(final int loanAmount) throws InsufficientLendersException {
         final Map<Lender, Integer> loans = getLendersForLoan(loanAmount);
 
@@ -55,7 +81,7 @@ public class LoanQuoteCalculator {
         final BigDecimal totalRepayment = monthlyRepayment.multiply(new BigDecimal(REPAYMENT_MONTHS));
 
         // estimate interest rate based on monthly repayment
-        final double rate = AmortizedLoan.getEstimatedAnnualInterestRate(loanAmount, REPAYMENT_MONTHS, monthlyRepayment.doubleValue()) * 100;
+        final double rate = AmortizedLoan.getApproximateAnnualInterestRate(loanAmount, REPAYMENT_MONTHS, monthlyRepayment.doubleValue()) * 100;
 
         return new LoanQuote(
                 loanAmount,
@@ -73,6 +99,13 @@ public class LoanQuoteCalculator {
         );
     }
 
+    /**
+     * Retrieves a list of lender and loan amount pairs that represent how much the borrower is borrowing from each lender
+     * @param loanAmount the total loan amount requested
+     * @return list of lender and loan amount pairs that represent how much the borrower is borrowing from each lender
+     * @throws InsufficientLendersException thrown when there is not sufficient funding from the list of lenders
+     * to satisfy the requested loan amount
+     */
     private Map<Lender, Integer> getLendersForLoan(final int loanAmount) throws InsufficientLendersException {
         final Map<Lender, Integer> result = new HashMap<>();
 
@@ -92,6 +125,6 @@ public class LoanQuoteCalculator {
             remainingLoanAmount -= lender.getAmount();
         }
 
-        throw new InsufficientLendersException("Insufficient offers from lenders to satisfy the loan. Try a smaller loan amount.");
+        throw new InsufficientLendersException();
     }
 }
