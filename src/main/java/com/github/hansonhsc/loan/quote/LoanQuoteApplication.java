@@ -29,7 +29,7 @@ public class LoanQuoteApplication {
     /**
      * Entry point for the application
      * @param args array of strings representing the user input. Must be of length 2, where <code>args[0]</code>
-     *             is a file path to the input CSV file containing lender information; and <code>arges[1]</code>
+     *             is a file path to the input CSV file containing lender information; and <code>args[1]</code>
      *             is an integer specifying the loan amount that is between <code>MIN_LOAN_AMOUNT</code> and
      *             <code>MAX_LOAN_AMOUNT</code> inclusive and in increments of <code>LOAN_AMOUNT_INCREMENT</code>.
      */

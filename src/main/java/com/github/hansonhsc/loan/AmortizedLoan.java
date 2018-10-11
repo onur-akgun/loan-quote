@@ -59,7 +59,7 @@ public final class AmortizedLoan {
      * Uses Newton-Raphson method to find an approximation of a root, given a function and its derivative
      * @param guess the initial guess of the root
      * @param f the function that tends to zero
-     * @param fPrime the derivate function of <code>f</code>
+     * @param fPrime the derivative function of <code>f</code>
      * @return an approximation of the root
      */
     private static double newtonRaphsonMethod(final double guess, final Function<Double, Double> f, final Function<Double, Double> fPrime) {
