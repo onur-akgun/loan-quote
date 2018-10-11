@@ -12,7 +12,7 @@ public final class AmortizedLoan {
     public static final int SCALE = 10;
 
     public static double getEstimatedAnnualInterestRate(final double principal, final int term, final double monthlyPayment) {
-        final double guessedMonthlyInterestRate = GUESSED_INTEREST_RATE / 12.0;
+        final double guessedMonthlyInterestRate = GUESSED_INTEREST_RATE / 12;
 
         // each month, the new amount owed is calculated by multiplying (the amount currently owed (1) + guessedMonthlyInterestRate)
         final double guessedMonthlyMultiplier = 1 + guessedMonthlyInterestRate;
@@ -31,7 +31,7 @@ public final class AmortizedLoan {
         final double estimatedMonthlyInterestRate = estimatedMonthlyMultiplier - 1;
 
         // get the estimated annual interest rate
-        return 12.0 * estimatedMonthlyInterestRate;
+        return 12 * estimatedMonthlyInterestRate;
     }
 
     private static double newtonRaphsonMethod(final double guess, final Function<Double, Double> f, final Function<Double, Double> fPrime) {
