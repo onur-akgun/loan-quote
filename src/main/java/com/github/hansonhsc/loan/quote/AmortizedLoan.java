@@ -17,10 +17,10 @@ public final class AmortizedLoan {
                 guessedMonthlyMultiplier,
 
                 // this is the function that we want to find roots of
-                m -> principal * Math.pow(m, term + 1) - (principal + monthlyPayment) * Math.pow(m, term) + monthlyPayment,
+                m -> (principal + monthlyPayment) * Math.pow(m, term) - principal * Math.pow(m, term + 1) - monthlyPayment,
 
                 // this is the derivative of the above
-                m -> principal * (term + 1) * Math.pow(m, term) - (principal + monthlyPayment) * term * Math.pow(m, term - 1)
+                m -> (principal + monthlyPayment) * term * Math.pow(m, term - 1) - principal * (term + 1) * Math.pow(m, term)
         );
 
         final double estimatedMonthlyInterestRate = estimatedMonthlyMultiplier - 1;
@@ -33,7 +33,7 @@ public final class AmortizedLoan {
         double current = guess;
 
         while (Math.abs(f.apply(current)) > EPSILON) {
-            current = current - f.apply(current) * 1.0 / fPrime.apply(current);
+            current = current - f.apply(current) / fPrime.apply(current);
         }
 
         return current;
