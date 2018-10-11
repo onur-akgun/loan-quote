@@ -56,7 +56,7 @@ public class LoanQuote {
     /**
      * Gets the annual interest rate for the loan as a percentage
      *
-     * @return
+     * @return the annual interest rate for the loan as a percentage
      */
     public BigDecimal getRate() {
         return rate;
