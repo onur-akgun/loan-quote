@@ -131,7 +131,7 @@ The principal owed next month is then the principal owed this month plus the int
 <img src="images/monthly_principal.gif">
 </p>
 
-To simplify things a little bit later, let's introduce a variable **m**, the monthly multiplier:
+To simplify things a little bit later, let's introduce a variable, the **monthly multiplier (m)**:
 
 <p align="center">
 <img src="images/monthly_multiplier.gif">
