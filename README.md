@@ -95,7 +95,9 @@ to the nearest penny
 0. The total repayment is the product of total repayment periods (36) and the total unrounded monthly repayment.
      - *Note that the total repayment amount might not be exactly 36 times of the displayed monthly repayment amount. When
 issuing the amortized schedule, care needs to be taken in the last month to reconcile any overpayments or underpayments
-each month due to extra or missing fractional pennies.*
+each month due to extra or missing fractional pennies:*
+
+        `lastMonthPayment = totalPayment - monthlyPayment * 35`
 0. The displayed loan rate is then calculated from the unrounded monthly repayment amount, loan amount and number of
 payment periods (36).
 
