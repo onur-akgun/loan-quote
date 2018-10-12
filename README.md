@@ -20,7 +20,7 @@ and the total repayment amount.
 ```
 
 * `market_file` - Path to a CSV file containing a list of all the offers being made by the lenders within the system. See
-`market.csv` for exact formatting
+[market.csv](src/test/resources/market.csv) for exact formatting
 * `loan_amount` - Borrowers are able to request a loan of any £100 increment between £1000 and £15000 inclusive. If the
 market does not have sufficient offers from lenders to satisfy the loan then the system would inform the borrower that
 it is not possible to provide a quote at that time.
