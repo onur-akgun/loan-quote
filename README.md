@@ -251,6 +251,8 @@ Credits
 - [Interest rate calculator](https://financialmentor.com/calculator/interest-rate-calculator)
 - [Online LaTeX editor](https://www.codecogs.com/latex/eqneditor.php)
 - [Convert terminal recordings to animated gifs](https://github.com/icholy/ttygif)
+- [Gif editor](https://ezgif.com/)
+- [Maven Wrapper](https://github.com/takari/maven-wrapper)
 
 License
 -------
