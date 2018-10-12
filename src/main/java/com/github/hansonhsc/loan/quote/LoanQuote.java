@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 /**
  * Bean to represent a single loan quote containing repayment information
  */
-public class LoanQuote {
+public final class LoanQuote {
     /**
      * the initial amount of loan in pounds sterling
      */

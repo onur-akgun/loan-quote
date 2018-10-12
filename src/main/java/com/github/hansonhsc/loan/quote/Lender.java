@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 /**
  * Bean to represent lenders specified in the input CSV file
  */
-public class Lender {
+public final class Lender {
     /**
      * the name of the lender
      */

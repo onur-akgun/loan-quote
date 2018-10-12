@@ -14,7 +14,7 @@ import static java.math.BigDecimal.ROUND_UP;
 /**
  * Given a list of lenders, produces quotes on demand using lenders with the lowest rates
  */
-public class LoanQuoteCalculator {
+public final class LoanQuoteCalculator {
     /**
      * Total number of repayment months over the entire loan
      */

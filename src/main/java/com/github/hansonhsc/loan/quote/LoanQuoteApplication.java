@@ -10,7 +10,7 @@ import java.util.List;
  * A command line application that reads a CSV file of lenders and provides a quote for the requested loan amount
  * using the lenders with the lowest rates
  */
-public class LoanQuoteApplication {
+public final class LoanQuoteApplication {
     /**
      * Minimum loan amount in pounds sterling that is allowed to be requested by the user
      */
