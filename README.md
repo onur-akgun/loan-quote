@@ -50,7 +50,7 @@ $ ./mvnw mvn clean verify
 ## Usage
 
 ```bash
-> java -jar loan-quote.jar [market_file] [loan_amount]
+$ java -jar loan-quote.jar [market_file] [loan_amount]
 ```
 
 * `market_file` - Path to a CSV file containing a list of all the offers being made by the lenders within the system. See
@@ -62,7 +62,7 @@ it is not possible to provide a quote at that time.
 ### Example
 
 ```bash
-> java -jar loan-quote.jar market.csv 1000
+$ java -jar loan-quote.jar market.csv 1000
 Requested amount: £1000
 Rate: 7.0%
 Monthly repayment: £30.78
