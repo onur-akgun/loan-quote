@@ -1,4 +1,4 @@
-![Loan Quote Calculator](images/calculator.jpg)
+![Loan Quote Calculator](images/console.gif)
 
 [![Build Status](https://travis-ci.com/hansonhsc/loan-quote.svg?branch=master)](https://travis-ci.com/hansonhsc/loan-quote)
 [![codecov](https://codecov.io/gh/hansonhsc/loan-quote/branch/master/graph/badge.svg)](https://codecov.io/gh/hansonhsc/loan-quote/branch/master)
@@ -214,6 +214,7 @@ Credits
 - [Newton-Raphson method](https://en.wikipedia.org/wiki/Newton%27s_method)
 - [Interest rate calculator](https://financialmentor.com/calculator/interest-rate-calculator)
 - [Online LaTeX editor](https://www.codecogs.com/latex/eqneditor.php)
+- [Convert terminal recordings to animated gifs](https://github.com/icholy/ttygif)
 
 License
 -------
