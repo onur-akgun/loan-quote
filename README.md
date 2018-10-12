@@ -239,7 +239,7 @@ annualInterestRate = 12 * monthlyInterestRate
 * lenders expect monthly repayment of capital and interest
 * lenders are not recycling their monthly repayments - if they are, we can potentially use low rate lenders to
 pay off high rate lenders to reduce the interest every month
-* it is possible to reconcile fractional pennies that were overpaid or underpaid each month in the last month
+* it is possible to reconcile fractional pennies that were overpaid or underpaid each month in the final month
 * we are not charging any fees on top of paying back lenders (quite unrealistic)
 
 Credits
