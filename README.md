@@ -13,6 +13,26 @@ The system strives to provide as low a rate to the borrower as is possible to en
 as they can be against competitors'. The borrower will also be provided with the details of the monthly repayment amount
 and the total repayment amount.
 
+## Building the Loan Quote Calculator
+
+Ensure you have Java installed, then:
+
+```bash
+$ git clone https://github.com/hansonhsc/loan-quote.git
+$ cd loan-quote
+$ ./mvnw clean install
+```
+
+The Loan Quote Calculator can then be found in `target/loan-quote-[version].jar`.
+
+### Windows
+
+Run `mvnw.cmd` instead of `mvnw`:
+
+```bash
+$ ./mvnw.cmd clean install
+```
+
 ## Usage
 
 ```bash
