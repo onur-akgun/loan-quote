@@ -223,8 +223,8 @@ while (abs(f(m)) > epsilon) {
     m = m - f(m) / f'(m)
 }
 
-monthlyInterestRate = m - 1;
-annualInterestRate = 12 * monthlyInterestRate;
+monthlyInterestRate = m - 1
+annualInterestRate = 12 * monthlyInterestRate
 ```
 
 ## Assumptions made
