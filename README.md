@@ -33,6 +33,20 @@ Run `mvnw.cmd` instead of `mvnw`:
 $ ./mvnw.cmd clean install
 ```
 
+## Running the tests
+
+### Unit tests
+
+```bash
+$ ./mvnw mvn clean test
+```
+
+### Integration tests
+
+```bash
+$ ./mvnw mvn clean verify
+```
+
 ## Usage
 
 ```bash
@@ -215,7 +229,7 @@ annualInterestRate = 12 * monthlyInterestRate;
 
 * all rates specified in CSV are annual interest rates as decimal, i.e. 0.10 = 10%
 * the displayed rate in the output is annual interest rate for the entire loan amount
-* all input CSV has the appropriate headers
+* any input CSV has the appropriate headers
 * the column *Available* in the CSV specifies the amount available for loan in pounds sterling (£)
 * all loans are amortized
 * interest is compounded monthly

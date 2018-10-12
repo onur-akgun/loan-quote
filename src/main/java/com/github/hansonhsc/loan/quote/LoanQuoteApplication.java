@@ -57,14 +57,20 @@ public class LoanQuoteApplication {
         }
 
         // parse the market.csv
+        final List<Lender> lenders;
 
-        //noinspection unchecked
-        final List<Lender> lenders = new CsvToBeanBuilder(marketFileReader)
-                .withType(Lender.class)
-                .build()
-                .parse();
+        try {
+            //noinspection unchecked
+            lenders = new CsvToBeanBuilder(marketFileReader)
+                    .withType(Lender.class)
+                    .withThrowExceptions(true)
+                    .build()
+                    .parse();
+        } catch (RuntimeException e) {
+            printError("Unable to parse invalid market file: " + e.getMessage());
 
-        // TODO: catch malformed CSV
+            return;
+        }
 
         // create a loan quote calculator that can get as many quotes as we like
         final LoanQuoteCalculator loanQuoteCalculator = new LoanQuoteCalculator(lenders);
