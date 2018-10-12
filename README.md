@@ -38,13 +38,13 @@ $ ./mvnw.cmd clean install
 ### Unit tests
 
 ```bash
-$ ./mvnw mvn clean test
+$ ./mvnw clean test
 ```
 
 ### Integration tests
 
 ```bash
-$ ./mvnw mvn clean verify
+$ ./mvnw clean verify
 ```
 
 ## Usage
