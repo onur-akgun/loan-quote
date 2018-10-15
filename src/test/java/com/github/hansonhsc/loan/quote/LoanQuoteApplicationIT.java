@@ -123,11 +123,48 @@ public class LoanQuoteApplicationIT {
         assertApplicationOutput(1000, "7.0", "30.88", "1111.65");
     }
 
-    // test amount as string
-    // test negative amount
-    // test 0 amount
-    // test 999 amount
-    // test 1000 amount
-    // test 1050 amount
-    // test 15000 amount
+    @Test
+    void testAmountNotANumber() {
+        assertErrorMessage("Invalid loan amount format, must be an integer: NOT_A_NUMBER", MARKET_CSV, "NOT_A_NUMBER");
+    }
+
+    @Test
+    void testAmountWithDecimalPlaces() {
+        assertErrorMessage("Invalid loan amount format, must be an integer: 1000.00", MARKET_CSV, "1000.00");
+    }
+
+    @Test
+    void testAmountWithLeadingZero() {
+        assertErrorMessage("Invalid loan amount format, must be an integer without leading zeroes: 01000", MARKET_CSV, "01000");
+    }
+
+    @Test
+    void testNegativeAmount() {
+        assertErrorMessage("Invalid loan amount, must be any 100 increment between 1000-15000 inclusive: -1000", MARKET_CSV, "-1000");
+    }
+
+    @Test
+    void testZeroAmount() {
+        assertErrorMessage("Invalid loan amount, must be any 100 increment between 1000-15000 inclusive: 0", MARKET_CSV, "0");
+    }
+
+    @Test
+    void test999Amount() {
+        assertErrorMessage("Invalid loan amount, must be any 100 increment between 1000-15000 inclusive: 999", MARKET_CSV, "999");
+    }
+
+    @Test
+    void test1050Amount() {
+        assertErrorMessage("Invalid loan amount, must be any 100 increment between 1000-15000 inclusive: 1050", MARKET_CSV, "1050");
+    }
+
+    @Test
+    void test15000Amount() {
+        assertErrorMessage("Insufficient offers from lenders to satisfy the loan. Try a smaller loan amount.", MARKET_CSV, "15000");
+    }
+
+    @Test
+    void testLeadingPlus() {
+        assertErrorMessage("Invalid loan amount format, must be an integer without leading plus: +1000", MARKET_CSV, "+1000");
+    }
 }

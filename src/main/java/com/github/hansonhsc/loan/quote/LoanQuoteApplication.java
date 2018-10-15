@@ -81,13 +81,26 @@ public final class LoanQuoteApplication {
         try {
             loanAmount = Integer.parseInt(loanAmountAsString);
         } catch (NumberFormatException e) {
-            printError("Invalid loan amount format, must be a number: " + loanAmountAsString);
+            printError("Invalid loan amount format, must be an integer: " + loanAmountAsString);
 
             return;
         }
 
         if (loanAmount < MIN_LOAN_AMOUNT || MAX_LOAN_AMOUNT < loanAmount || loanAmount % LOAN_AMOUNT_INCREMENT != 0) {
             printError("Invalid loan amount, must be any 100 increment between 1000-15000 inclusive: " + loanAmount);
+
+            return;
+        }
+
+        // parseInt allows leading zero or leading plus, we shouldn't
+        final char loanAmountLeadingChar = loanAmountAsString.charAt(0);
+
+        if (loanAmountLeadingChar == '0') {
+            printError("Invalid loan amount format, must be an integer without leading zeroes: " + loanAmountAsString);
+
+            return;
+        } else if (loanAmountLeadingChar == '+') {
+            printError("Invalid loan amount format, must be an integer without leading plus: " + loanAmountAsString);
 
             return;
         }
