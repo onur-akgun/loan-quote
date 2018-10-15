@@ -248,7 +248,7 @@ annualInterestRate = 12 * monthlyInterestRate
 * the column *Available* in the CSV specifies the amount available for loan in pounds sterling (£)
 * all loans are amortized
 * interest is compounded monthly
-* it is possible to lend only part of the amount available from a particular lender
+* it is possible to borrow only part of the amount available from a particular lender
 * lenders expect monthly repayment of capital and interest
 * lenders are not recycling their monthly repayments - if they are, we can potentially use low rate lenders to
 pay off high rate lenders to reduce the interest every month
