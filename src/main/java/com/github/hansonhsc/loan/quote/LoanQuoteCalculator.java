@@ -106,7 +106,7 @@ public final class LoanQuoteCalculator {
      * @throws InsufficientLendersException thrown when there is not sufficient funding from the list of lenders
      * to satisfy the requested loan amount
      */
-    private Map<Lender, Integer> getLendersForLoan(final int loanAmount) throws InsufficientLendersException {
+    Map<Lender, Integer> getLendersForLoan(final int loanAmount) throws InsufficientLendersException {
         final Map<Lender, Integer> result = new HashMap<>();
 
         int remainingLoanAmount = loanAmount;
