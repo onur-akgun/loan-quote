@@ -85,10 +85,10 @@ formula:
    </p>
    where:
 
-    - c = monthly payment
-    - P = principal, i.e. loan amount
-    - r = monthly interest rate, i.e. annual interest rate / 12
-    - n = number of payment periods, i.e. 36
+    - ![c](images/c.gif) = monthly payment
+    - ![P](images/capital_p.gif) = principal, i.e. loan amount
+    - ![r](images/r.gif) = monthly interest rate, i.e. annual interest rate / 12
+    - ![n](images/n.gif) = number of payment periods, i.e. 36
 
 0. The monthly repayment displayed is then the sum of monthly repayment to each lender. This number is rounded up/down
 to the nearest penny
@@ -105,21 +105,21 @@ payment periods (36).
 
 Before we calculate the loan rate, let's establish what values we have:
 
-- loan amount: let's call this the **principal (P)**
-- number of monthly payments: let's call this the **term (T)**
-- monthly payment: let's call this the **payment (R)**
-- interest rate: let's call this the **interest rate (r)**. *This is what we need to calculate to find the annual interest rate*
+- loan amount: let's call this the **principal (![P](images/capital_p.gif))**
+- number of monthly payments: let's call this the **term (![T](images/capital_t.gif))**
+- monthly payment: let's call this the **payment (![R](images/capital_r.gif))**
+- interest rate: let's call this the **interest rate (![r](images/r.gif))**. *This is what we need to calculate to find the annual interest rate*
 
 #### What happens every month?
 
-Every month, the borrower pays a recurring amount (R), which includes paying interest and part of the principal still owed.
+Every month, the borrower pays a recurring amount (![R](images/capital_r.gif)), which includes paying interest and part of the principal still owed.
 At the end of the payment term, the principal owed will be 0.
 
-If *P<sub>i</sub>* is the principal owed currently after *i*
+If <sub>![P<sub>i</sub>](images/p_i.gif)</sub> is the principal owed currently after *i*
 payments have been made, then:
 
-- *P<sub>0</sub> = P*, the principal owed before any payments is the initial loan amount or principal
-- *P<sub>T</sub> = 0*, nothing is owed at the end of the term
+- <sub>![P<sub>0</sub> = P](images/p_0_p.gif)</sub>, the principal owed before any payments is the initial loan amount or principal
+- <sub>![P<sub>T</sub> = 0](images/p_t_0.gif)</sub>, nothing is owed at the end of the term
 
 Due to compound interest, every month the interest is based on the principal owed. So the principal owed the next month
 can be calculated by the monthly interest rate. The monthly interest rate can be calculated by dividing the annual interest
@@ -131,7 +131,7 @@ The principal owed next month is then the principal owed this month plus the int
 <img src="images/monthly_principal.gif">
 </p>
 
-To simplify things a little bit later, let's introduce a variable, the **monthly multiplier (m)**:
+To simplify things a little bit later, let's introduce a variable, the **monthly multiplier (![m](images/m.gif))**:
 
 <p align="center">
 <img src="images/monthly_multiplier.gif">
@@ -151,7 +151,7 @@ The first 3 payment periods looks like this:
 <img src="images/principal_sequence.gif">
 </p>
 
-Looking at how sequence progresses from *P<sub>3</sub>*, we can then define *P<sub>i</sub>* as:
+Looking at how the sequence progresses from <sub>![P<sub>3</sub>](images/p_3.gif)</sub>, we can then define <sub>![P<sub>i</sub>](images/p_i.gif)</sub> as:
 
 <p align="center">
 <img src="images/principal_sum_of_m.gif">
@@ -159,21 +159,21 @@ Looking at how sequence progresses from *P<sub>3</sub>*, we can then define *P<s
 
 We can calculate the principal owed in a given month by the above formula.
 
-#### Extracting a polynomial using *P<sub>T</sub>*
+#### Extracting a polynomial using <sub>![P<sub>T</sub>](images/p_t.gif)</sub>
 
-Substituting *T* as *i* for the above:
+Substituting ![T](images/capital_t.gif) as ![i](images/i.gif) for the above:
 
 <p align="center">
 <img src="images/end_principal.gif">
 </p>
 
-But recall that *P<sub>T</sub> = 0*, therefore we have the following polynomial:
+But recall that <sub>![P<sub>T</sub> = 0](images/p_t_0.gif)</sub>, therefore we have the following polynomial:
 
 <p align="center">
 <img src="images/polynomial_with_sum.gif">
 </p>
 
-Using the [formula for the sum of the first *n* terms of a geometric series](https://en.wikipedia.org/wiki/Geometric_series#Formula):
+Using the [formula for the sum of the first ![n](images/hyperlink_n.gif) terms of a geometric series](https://en.wikipedia.org/wiki/Geometric_series#Formula):
 
 <p align="center">
 <img src="images/geometric_series.gif">
@@ -194,7 +194,7 @@ given a function:
 <img src="images/function.gif">
 </p>
 
-It can find successively better approximations of *x* using the function's derivative *f'*:
+It can find successively better approximations of ![x](images/x.gif) using the function's derivative ![f'](images/f_prime.gif):
 
 <p align="center">
 <img src="images/newton_raphson_1.gif">
@@ -212,7 +212,7 @@ Using the polynomial that we got earlier, we can find its derivative:
 <img src="images/derivative.gif">
 </p>
 
-Then we can use Newton-Raphson to find *m* and ultimately the annual interest rate by the following pseudo-code:
+Then we can use Newton-Raphson to find ![m](images/m.gif) and ultimately the annual interest rate by the following pseudo-code:
 
 ```
 guess = 0.10 // start by guessing the interest rate
