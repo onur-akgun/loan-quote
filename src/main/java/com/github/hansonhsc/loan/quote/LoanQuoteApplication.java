@@ -41,66 +41,16 @@ public final class LoanQuoteApplication {
             return;
         }
 
-        // read the arguments as string
-        final String marketFilePath = args[0];
-        final String loanAmountAsString = args[1];
-
-        // first argument is market.csv, ensure that it is a file
-        final FileReader marketFileReader;
-
-        try {
-            marketFileReader = new FileReader(marketFilePath);
-        } catch (FileNotFoundException e) {
-            printError("Invalid market file: " + marketFilePath);
-
-            return;
-        }
-
-        // parse the market.csv
-        final List<Lender> lenders;
-
-        try {
-            //noinspection unchecked
-            lenders = new CsvToBeanBuilder(marketFileReader)
-                    .withType(Lender.class)
-                    .withThrowExceptions(true)
-                    .build()
-                    .parse();
-        } catch (RuntimeException e) {
-            printError("Unable to parse invalid market file: " + e.getMessage());
-
-            return;
-        }
-
-        // create a loan quote calculator that can get as many quotes as we like
-        final LoanQuoteCalculator loanQuoteCalculator = new LoanQuoteCalculator(lenders);
-
-        // validate loan amount
+        // validate and parse the arguments
+        final LoanQuoteCalculator loanQuoteCalculator;
         final int loanAmount;
 
         try {
-            loanAmount = Integer.parseInt(loanAmountAsString);
-        } catch (NumberFormatException e) {
-            printError("Invalid loan amount format, must be an integer: " + loanAmountAsString);
+            loanQuoteCalculator = createLoanQuoteCalculator(args[0]);
 
-            return;
-        }
-
-        if (loanAmount < MIN_LOAN_AMOUNT || MAX_LOAN_AMOUNT < loanAmount || loanAmount % LOAN_AMOUNT_INCREMENT != 0) {
-            printError("Invalid loan amount, must be any 100 increment between 1000-15000 inclusive: " + loanAmount);
-
-            return;
-        }
-
-        // parseInt allows leading zero or leading plus, we shouldn't
-        final char loanAmountLeadingChar = loanAmountAsString.charAt(0);
-
-        if (loanAmountLeadingChar == '0') {
-            printError("Invalid loan amount format, must be an integer without leading zeroes: " + loanAmountAsString);
-
-            return;
-        } else if (loanAmountLeadingChar == '+') {
-            printError("Invalid loan amount format, must be an integer without leading plus: " + loanAmountAsString);
+            loanAmount = getLoanAmount(args[1]);
+        } catch (LoanQuoteParameterValidationException e) {
+            printError(e.getMessage());
 
             return;
         }
@@ -118,6 +68,77 @@ public final class LoanQuoteApplication {
 
         // display the quote to the user
         printQuote(quote);
+    }
+
+    /**
+     * Creates a loan quote calculator from a market CSV file path
+     * @param marketFilePath the file path for a CSV file representing the market lenders
+     * @return a <code>LoanQuoteCalculator</code> object that can be reused to create as many quotes as we want
+     * @throws LoanQuoteParameterValidationException thrown if the <code>marketFilePath</code> is not a file path to a
+     * CSV file or the file is not a valid CSV
+     */
+    private static LoanQuoteCalculator createLoanQuoteCalculator(final String marketFilePath) throws LoanQuoteParameterValidationException {
+        // first argument is market.csv, ensure that it is a file
+        final FileReader marketFileReader;
+
+        try {
+            marketFileReader = new FileReader(marketFilePath);
+        } catch (FileNotFoundException e) {
+            throw new LoanQuoteParameterValidationException("Invalid market file: " + marketFilePath);
+        }
+
+        // parse the market.csv
+        final List<Lender> lenders;
+
+        try {
+            //noinspection unchecked
+            lenders = new CsvToBeanBuilder(marketFileReader)
+                    .withType(Lender.class)
+                    .withThrowExceptions(true)
+                    .build()
+                    .parse();
+        } catch (RuntimeException e) {
+            throw new LoanQuoteParameterValidationException("Unable to parse invalid market file: " + e.getMessage(), e);
+        }
+
+        return new LoanQuoteCalculator(lenders);
+    }
+
+    /**
+     * Gets the loan amount from the string input to an integer representation, performing format validation and
+     * range validation
+     * @param loanAmountAsString a string representing an integer between <code>MIN_LOAN_AMOUNT</code> and
+     *                           <code>MAX_LOAN_AMOUNT</code> inclusive and in increments of
+     *                           <code>LOAN_AMOUNT_INCREMENT</code>. Must not start with the character <code>0</code> or <code>+</code>.
+     * @return an integer representing the loan amount requested
+     * @throws LoanQuoteParameterValidationException thrown if the loan amount is not between <code>MIN_LOAN_AMOUNT</code> and
+     *                           <code>MAX_LOAN_AMOUNT</code> inclusive or in increments of <code>LOAN_AMOUNT_INCREMENT</code>
+     *                           or <code>loanAmountAsString</code> has a leading character of <code>0</code> or <code>+</code>.
+     */
+    private static int getLoanAmount(final String loanAmountAsString) throws LoanQuoteParameterValidationException {
+        // validate loan amount
+        final int loanAmount;
+
+        try {
+            loanAmount = Integer.parseInt(loanAmountAsString);
+        } catch (NumberFormatException e) {
+            throw new LoanQuoteParameterValidationException("Invalid loan amount format, must be an integer: " + loanAmountAsString, e);
+        }
+
+        if (loanAmount < MIN_LOAN_AMOUNT || MAX_LOAN_AMOUNT < loanAmount || loanAmount % LOAN_AMOUNT_INCREMENT != 0) {
+            throw new LoanQuoteParameterValidationException("Invalid loan amount, must be any 100 increment between 1000-15000 inclusive: " + loanAmount);
+        }
+
+        // parseInt allows leading zero or leading plus, we shouldn't
+        final char loanAmountLeadingChar = loanAmountAsString.charAt(0);
+
+        if (loanAmountLeadingChar == '0') {
+            throw new LoanQuoteParameterValidationException("Invalid loan amount format, must be an integer without leading zeroes: " + loanAmountAsString);
+        } else if (loanAmountLeadingChar == '+') {
+            throw new LoanQuoteParameterValidationException("Invalid loan amount format, must be an integer without leading plus: " + loanAmountAsString);
+        }
+
+        return loanAmount;
     }
 
     /**
