@@ -78,8 +78,8 @@ Repayment amounts are displayed to 2 decimal places and the rate of the loan is 
 0. Once the lenders are found, we calculate how much we need to borrow from each lender, which might not be the full
 amount the lender can lend out
 0. Once the loan amount for each lender is established, we calculate the monthly repayment for each lender based on
-[amortized interest](https://en.wikipedia.org/wiki/Compound_interest#Exact_formula_for_monthly_payment), using this
-formula:
+amortized interest, using this
+formula from [Wikipedia](https://en.wikipedia.org/wiki/Compound_interest#Exact_formula_for_monthly_payment):
    <p align="center">
    <img src="images/monthly_repayment.gif">
    </p>
@@ -91,7 +91,8 @@ formula:
     - ![n](images/n.gif) = number of payment periods, i.e. 36
 
 0. The monthly repayment displayed is then the sum of monthly repayment to each lender. This number is rounded up/down
-to the nearest penny
+to the nearest penny. The rounding behaviour can be modified easily, but it does not matter too much, as long as we are
+consistent.
 0. The total repayment is the product of total repayment periods (36) and the total unrounded monthly repayment.
      - *Note that the total repayment amount might not be exactly 36 times of the displayed monthly repayment amount. When
 issuing the amortized schedule, care needs to be taken in the final month to reconcile any overpayments or underpayments
@@ -103,12 +104,24 @@ payment periods (36).
 
 ### Calculating the loan rate
 
-Before we calculate the loan rate, let's establish what values we have:
+To calculate the loan rate, there is no readily available formula. However,
+[this article](https://blog.bossylobster.com/2012/05/reverse-calculating-interest-rate) does describe a method for
+doing this using Newton-Raphson method.
+
+However, do note that there is a slight mistake in this article when resolving the geometric series. The following
+is the algorithm used based on the method described in the article, with the mistake corrected.
+
+#### Identifying the variables
+
+Before we calculate the loan rate, let's establish what values we have and what we are trying to find out:
 
 - loan amount: let's call this the **principal (![P](images/capital_p.gif))**
 - number of monthly payments: let's call this the **term (![T](images/capital_t.gif))**
 - monthly payment: let's call this the **payment (![R](images/capital_r.gif))**
-- interest rate: let's call this the **interest rate (![r](images/r.gif))**. *This is what we need to calculate to find the annual interest rate*
+- annual interest rate: let's call this the **interest rate (![r](images/r.gif))** - this is what we are trying to find out
+    - *Note the slight different in terminology here compared to the earlier formula from Wikipedia for calculating the
+    monthly repayment, where ![r](images/r.gif) represented the monthly interest rate. Here, ![r](images/r.gif)
+    represents the __annual__ interest rate.*
 
 #### What happens every month?
 
