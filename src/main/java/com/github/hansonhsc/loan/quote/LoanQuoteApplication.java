@@ -14,17 +14,17 @@ public final class LoanQuoteApplication {
     /**
      * Minimum loan amount in pounds sterling that is allowed to be requested by the user
      */
-    private final static int MIN_LOAN_AMOUNT = 1000;
+    final static int MIN_LOAN_AMOUNT = 1000;
 
     /**
      * Maximum loan amount in pounds sterling that is allowed to be requested by the user
      */
-    private final static int MAX_LOAN_AMOUNT = 15000;
+    final static int MAX_LOAN_AMOUNT = 15000;
 
     /**
      * Loan amount increments that the user is allowed to request in
      */
-    private final static int LOAN_AMOUNT_INCREMENT = 100;
+    final static int LOAN_AMOUNT_INCREMENT = 100;
 
     /**
      * Entry point for the application
@@ -77,7 +77,7 @@ public final class LoanQuoteApplication {
      * @throws LoanQuoteParameterValidationException thrown if the <code>marketFilePath</code> is not a file path to a
      * CSV file or the file is not a valid CSV
      */
-    private static LoanQuoteCalculator createLoanQuoteCalculator(final String marketFilePath) throws LoanQuoteParameterValidationException {
+    static LoanQuoteCalculator createLoanQuoteCalculator(final String marketFilePath) throws LoanQuoteParameterValidationException {
         // first argument is market.csv, ensure that it is a file
         final FileReader marketFileReader;
 
@@ -115,7 +115,7 @@ public final class LoanQuoteApplication {
      *                           <code>MAX_LOAN_AMOUNT</code> inclusive or in increments of <code>LOAN_AMOUNT_INCREMENT</code>
      *                           or <code>loanAmountAsString</code> has a leading character of <code>0</code> or <code>+</code>.
      */
-    private static int getLoanAmount(final String loanAmountAsString) throws LoanQuoteParameterValidationException {
+    static int getLoanAmount(final String loanAmountAsString) throws LoanQuoteParameterValidationException {
         // validate loan amount
         final int loanAmount;
 

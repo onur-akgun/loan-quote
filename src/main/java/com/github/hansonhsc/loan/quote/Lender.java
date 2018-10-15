@@ -27,6 +27,24 @@ public final class Lender {
     private int amount;
 
     /**
+     * Default constructor required by bean specification
+     */
+    public Lender() {
+    }
+
+    /**
+     * Constructs a lender object with all required properties
+     * @param name the name of the lender
+     * @param rate the annual interest rate of any loans by this lender
+     * @param amount the total amount available for loans from this lender in pounds sterling
+     */
+    public Lender(final String name, final BigDecimal rate, final int amount) {
+        this.name = name;
+        this.rate = rate;
+        this.amount = amount;
+    }
+
+    /**
      * Gets the name of the lender
      * @return the name of the lender
      */
@@ -72,5 +90,48 @@ public final class Lender {
      */
     public void setAmount(final int amount) {
         this.amount = amount;
+    }
+
+    /**
+     * Generated equals method
+     * @param o
+     * @return
+     */
+    @SuppressWarnings("SimplifiableIfStatement")
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        final Lender lender = (Lender) o;
+
+        if (amount != lender.amount) return false;
+        if (!name.equals(lender.name)) return false;
+        return rate.equals(lender.rate);
+    }
+
+    /**
+     * Generated hashCode method
+     * @return
+     */
+    @Override
+    public int hashCode() {
+        int result = name.hashCode();
+        result = 31 * result + rate.hashCode();
+        result = 31 * result + amount;
+        return result;
+    }
+
+    /**
+     * Generate toString method
+     * @return
+     */
+    @Override
+    public String toString() {
+        return "Lender{" +
+                "name='" + name + '\'' +
+                ", rate=" + rate +
+                ", amount=" + amount +
+                '}';
     }
 }

@@ -8,13 +8,12 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import static com.github.hansonhsc.loan.quote.LoanQuoteApplicationCsvTest.MARKET_CSV;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class LoanQuoteApplicationIT {
-    public static final String MARKET_CSV = "src/test/resources/market.csv";
-
     private static File findJarFile() {
         final File[] files = new File("target").listFiles(
                 file -> file.getName().startsWith("loan-quote-")
@@ -106,6 +105,11 @@ public class LoanQuoteApplicationIT {
     @Test
     void test1Arg() {
         assertErrorMessage("Invalid number of arguments: 1. Expected: 2", MARKET_CSV);
+    }
+
+    @Test
+    void testExtraArg() {
+        assertErrorMessage("Invalid number of arguments: 3. Expected: 2", MARKET_CSV, "1000", "extra");
     }
 
     @Test
