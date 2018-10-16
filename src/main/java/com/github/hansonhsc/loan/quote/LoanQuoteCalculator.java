@@ -14,7 +14,7 @@ import static java.math.BigDecimal.ROUND_UP;
 /**
  * Given a list of lenders, produces quotes on demand using lenders with the lowest rates
  */
-public final class LoanQuoteCalculator {
+public class LoanQuoteCalculator {
     /**
      * Total number of repayment months over the entire loan
      */
@@ -68,7 +68,7 @@ public final class LoanQuoteCalculator {
                     final Lender lender = individualLoan.getKey();
                     final Integer individualLoanAmount = individualLoan.getValue();
 
-                    return AmortizedLoan.getMonthlyRepayment(new BigDecimal(individualLoanAmount), lender.getRate(), REPAYMENT_MONTHS);
+                    return getMonthlyRepayment(lender.getRate(), individualLoanAmount);
                 })
 
                 // add up each monthly repayment
@@ -81,7 +81,7 @@ public final class LoanQuoteCalculator {
         final BigDecimal totalRepayment = monthlyRepayment.multiply(new BigDecimal(REPAYMENT_MONTHS));
 
         // estimate interest rate based on monthly repayment
-        final double rate = AmortizedLoan.getApproximateAnnualInterestRate(loanAmount, REPAYMENT_MONTHS, monthlyRepayment.doubleValue()) * 100;
+        final double rate = getApproximateAnnualInterestRate(loanAmount, monthlyRepayment);
 
         return new LoanQuote(
                 loanAmount,
@@ -97,6 +97,26 @@ public final class LoanQuoteCalculator {
                 // round up to ensure we do not lose fractional pennies, better for the customers to lose out than us having a shortfall
                 totalRepayment.setScale(2, ROUND_UP)
         );
+    }
+
+    /**
+     * Calculates an approximate annual interest rate using only the principal, monthly repayment
+     * @param loanAmount initial loan amount
+     * @param monthlyRepayment amount of repayment per month
+     * @return an approximation of the annual interest rate in percentage format
+     */
+    double getApproximateAnnualInterestRate(final int loanAmount, final BigDecimal monthlyRepayment) {
+        return AmortizedLoan.getApproximateAnnualInterestRate(loanAmount, REPAYMENT_MONTHS, monthlyRepayment.doubleValue()) * 100;
+    }
+
+    /**
+     * Calculates the monthly repayment required using amortized interest
+     * @param rate annual interest rate of the loan
+     * @param individualLoanAmount the initial loan amount
+     * @return the repayment required to repay capital and interest every month
+     */
+    BigDecimal getMonthlyRepayment(final BigDecimal rate, final Integer individualLoanAmount) {
+        return AmortizedLoan.getMonthlyRepayment(new BigDecimal(individualLoanAmount), rate, REPAYMENT_MONTHS);
     }
 
     /**

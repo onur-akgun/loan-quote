@@ -26,7 +26,7 @@ public final class AmortizedLoan {
     private static final int SCALE = 10;
 
     /**
-     * Calculates an approximate annual interest rate using only the principal, term and month repayment
+     * Calculates an approximate annual interest rate using only the principal, term and monthly repayment
      * @param principal the initial loan amount
      * @param term number of repayment terms
      * @param monthlyPayment amount of repayment per term
