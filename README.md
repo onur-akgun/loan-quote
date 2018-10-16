@@ -25,6 +25,8 @@ $ ./mvnw clean install
 
 The Loan Quote Calculator can then be found in `target/loan-quote-[version].jar`.
 
+`loan-quote-[version]-sources.jar` and `loan-quote-[version]-javadoc.jar` can also be found in the `target` directory.
+
 ### Windows
 
 Run `mvnw.cmd` instead of `mvnw`:
