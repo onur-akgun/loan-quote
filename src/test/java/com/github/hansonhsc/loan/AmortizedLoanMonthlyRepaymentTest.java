@@ -1,11 +1,16 @@
 package com.github.hansonhsc.loan;
 
+import com.opencsv.bean.CsvToBeanBuilder;
 import org.junit.jupiter.api.Test;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.math.BigDecimal;
+import java.util.List;
 
 import static java.math.BigDecimal.ROUND_HALF_UP;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class AmortizedLoanMonthlyRepaymentTest {
     private String getMonthlyRepayment(final int principal, final double annualInterestRatePercent, final int numberOfPaymentPeriods) {
@@ -17,18 +22,34 @@ public class AmortizedLoanMonthlyRepaymentTest {
     }
 
     @Test
-    void testInvalidInput() {
-        // principal=0
-        // principal=-1
-        // negative interest rate
-        // 0 interest rate
-        // 0 payment periods
-        // -1 payment periods
-        // Integer.MAX payment periods
+    void test0Principal() {
+        assertEquals("0.00", getMonthlyRepayment(0, 1, 36));
     }
 
     @Test
-    void testMonthlyRepayment() {
+    void testNegativePrincipal() {
+        assertEquals("-0.03", getMonthlyRepayment(-1, 1, 36));
+        assertEquals("-32.27", getMonthlyRepayment(-1_000, 10, 36));
+    }
+
+    @Test
+    void test0InterestRate() {
+        assertEquals("27.78", getMonthlyRepayment(1000, 0, 36));
+    }
+
+    @Test
+    void testNegativeInterestRate() {
+        assertThrows(IllegalArgumentException.class, () -> getMonthlyRepayment(1_000, -10, 36));
+    }
+
+    @Test
+    void testInvalidPaymentPeriods() {
+        assertThrows(IllegalArgumentException.class, () -> getMonthlyRepayment(1_000, 10, 0));
+        assertThrows(IllegalArgumentException.class, () -> getMonthlyRepayment(1_000, 10, -1));
+    }
+
+    @Test
+    void testMonthlyRepayments() {
         assertEquals("32.27", getMonthlyRepayment(1_000, 10, 36));
         assertEquals("32267.19", getMonthlyRepayment(1_000_000, 10, 36));
         assertEquals("0.32", getMonthlyRepayment(10, 10, 36));
@@ -38,6 +59,27 @@ public class AmortizedLoanMonthlyRepaymentTest {
         assertEquals("0.03", getMonthlyRepayment(1, 10, 36));
     }
 
-    // >1 interest rate
-    // principal=Integer.MAX
+    @Test
+    void testMonthlyRepaymentsWithGeneratedValues() throws FileNotFoundException {
+        // payments.csv is a generated CSV from using the PMT function in a spreadsheet
+        final FileReader paymentFileReader = new FileReader("src/test/resources/payments.csv");
+
+        //noinspection unchecked
+        final List<Payment> payments = new CsvToBeanBuilder(paymentFileReader)
+                .withType(Payment.class)
+                .build()
+                .parse();
+
+        for (final Payment payment : payments) {
+            assertEquals(
+                    payment.getPayment().toString(),
+                    getMonthlyRepayment(
+                            payment.getPrincipal(),
+                            payment.getRate().doubleValue() * 100,
+                            36
+                    ),
+                    payment.toString()
+            );
+        }
+    }
 }

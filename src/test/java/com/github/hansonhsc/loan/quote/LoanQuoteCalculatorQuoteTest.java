@@ -27,6 +27,8 @@ public class LoanQuoteCalculatorQuoteTest {
         // it will call getMonthlyRepayment exactly once with for Fred's 0.1254 rate and 1000 loan amount
         doReturn(new BigDecimal(7)).when(loanQuoteCalculator).getMonthlyRepayment(new BigDecimal("0.1254"), 1000);
 
+        doReturn(0.0).when(loanQuoteCalculator).getApproximateAnnualInterestRate(anyInt(), any());
+
         final LoanQuote quote = loanQuoteCalculator.getQuote(1000);
 
         // verify invocations
@@ -56,6 +58,8 @@ public class LoanQuoteCalculatorQuoteTest {
         doReturn(new BigDecimal(7)).when(loanQuoteCalculator).getMonthlyRepayment(new BigDecimal("0.1254"), 1000);
         doReturn(new BigDecimal(5)).when(loanQuoteCalculator).getMonthlyRepayment(new BigDecimal("0.07"), 2000);
 
+        doReturn(0.0).when(loanQuoteCalculator).getApproximateAnnualInterestRate(anyInt(), any());
+
         final LoanQuote quote = loanQuoteCalculator.getQuote(3000);
 
         // verify invocations
@@ -84,6 +88,8 @@ public class LoanQuoteCalculatorQuoteTest {
         // it will call getMonthlyRepayment twice
         doReturn(new BigDecimal("12.243")).when(loanQuoteCalculator).getMonthlyRepayment(new BigDecimal("0.1254"), 1000);
         doReturn(new BigDecimal("7.283")).when(loanQuoteCalculator).getMonthlyRepayment(new BigDecimal("0.07"), 2000);
+
+        doReturn(0.0).when(loanQuoteCalculator).getApproximateAnnualInterestRate(anyInt(), any());
 
         final LoanQuote quote = loanQuoteCalculator.getQuote(3000);
 
@@ -117,6 +123,8 @@ public class LoanQuoteCalculatorQuoteTest {
         // it will call getMonthlyRepayment twice
         doReturn(new BigDecimal("12.243")).when(loanQuoteCalculator).getMonthlyRepayment(new BigDecimal("0.1254"), 1000);
         doReturn(new BigDecimal("7.281")).when(loanQuoteCalculator).getMonthlyRepayment(new BigDecimal("0.07"), 2000);
+
+        doReturn(0.0).when(loanQuoteCalculator).getApproximateAnnualInterestRate(anyInt(), any());
 
         final LoanQuote quote = loanQuoteCalculator.getQuote(3000);
 

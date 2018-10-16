@@ -9,16 +9,11 @@ import static java.math.RoundingMode.HALF_UP;
  * Utility class to provide calculations based on amortized loans
  */
 public final class AmortizedLoan {
-    /**
-     * The initial annual interest rate to use when used for approximation in
-     * <code>getApproximateAnnualInterestRate</code>. Expressed as a decimal, i.e. 10% = 0.01.
-     */
-    private static final double GUESSED_INTEREST_RATE = 0.10;
 
     /**
      * Used in <code>newtonRaphsonMethod</code> to progress towards zero
      */
-    private static final double EPSILON = 0.00000001;
+    private static final double EPSILON = 0.00001;
 
     /**
      * The scale used in all BigDecimal calculations
@@ -33,7 +28,16 @@ public final class AmortizedLoan {
      * @return an approximation of the annual interest rate in decimal format (i.e. 0.1 = 10%)
      */
     public static double getApproximateAnnualInterestRate(final double principal, final int term, final double monthlyPayment) {
-        final double guessedMonthlyInterestRate = GUESSED_INTEREST_RATE / 12;
+        if (principal <= 0) {
+            throw new IllegalArgumentException("Principal must be positive");
+        } else if (monthlyPayment < principal / term) {
+            throw new IllegalArgumentException("Monthly payment not enough to pay off principal in term even without interest");
+        } else if (term <= 0) {
+            throw new IllegalArgumentException("Term must be positive");
+        }
+
+        // a decent guess at the interest rate is to just assume entire monthly payment is interest
+        final double guessedMonthlyInterestRate = monthlyPayment / principal;
 
         // each month, the new amount owed is calculated by multiplying (the amount currently owed (1) + guessedMonthlyInterestRate)
         final double guessedMonthlyMultiplier = 1 + guessedMonthlyInterestRate;
@@ -65,7 +69,9 @@ public final class AmortizedLoan {
     private static double newtonRaphsonMethod(final double guess, final Function<Double, Double> f, final Function<Double, Double> fPrime) {
         double current = guess;
 
-        while (Math.abs(f.apply(current)) > EPSILON) {
+        // only iterate a maximum of 1000 times, it should only iterate more than that if the interest rate is very high
+        // but then we don't need that much accuracy
+        for (int i = 0; i < 1000 && Math.abs(f.apply(current)) > EPSILON; i++) {
             current = current - f.apply(current) / fPrime.apply(current);
         }
 
@@ -80,6 +86,18 @@ public final class AmortizedLoan {
      * @return the repayment required to repay capital and interest every month
      */
     public static BigDecimal getMonthlyRepayment(final BigDecimal principal, final BigDecimal annualInterestRate, final int numberOfPaymentPeriods) {
+        final int interestRateCompareTo0 = annualInterestRate.compareTo(new BigDecimal(0));
+
+        if (interestRateCompareTo0 < 0) {
+            // interest rate is negative
+            throw new IllegalArgumentException("Annual interest rate must be non-negative");
+        } else if (interestRateCompareTo0 == 0) {
+            // interest rate is 0
+            return principal.divide(new BigDecimal(numberOfPaymentPeriods), SCALE, HALF_UP);
+        } else if (numberOfPaymentPeriods <= 0) {
+            throw new IllegalArgumentException("Number of payment periods must be positive");
+        }
+
         final BigDecimal monthlyInterestRate = annualInterestRate.divide(new BigDecimal(12), SCALE, HALF_UP);
 
         // c = (P * r) / (1-(1/(1+r)^n))
