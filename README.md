@@ -53,6 +53,9 @@ The formula used to generate the monthly repayment for the given interest rate a
 =ABS(PMT([rate] / 12, 36 , [principal]))
 ```
 
+See [PMT function documentation](https://wiki.openoffice.org/wiki/Documentation/How_Tos/Calc:_PMT_function) for more
+details.
+
 ### Integration tests
 
 [LoanQuoteApplicationIT](src/test/java/com/github/hansonhsc/loan/quote/LoanQuoteApplicationIT.java) consists of a few
