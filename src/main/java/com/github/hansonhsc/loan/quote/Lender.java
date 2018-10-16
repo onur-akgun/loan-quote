@@ -123,7 +123,7 @@ public final class Lender {
     }
 
     /**
-     * Generate toString method
+     * Generated toString method
      * @return string representation of this object, for testing purposes.
      */
     @Override
