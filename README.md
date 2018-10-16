@@ -43,7 +43,21 @@ $ ./mvnw.cmd clean install
 $ ./mvnw clean test
 ```
 
+Note that [payments.csv](src/test/resources/payments.csv) is used in some of the unit tests as a lookup table
+of expected values of interest rate, principal and monthly repayments. This CSV file is generated using a LibreOffice
+Calc (any spreadsheet application should support this).
+
+The formula used to generate the monthly repayment for the given interest rate and principal is:
+
+```
+=ABS(PMT([rate] / 12, 36 , [principal]))
+```
+
 ### Integration tests
+
+[LoanQuoteApplicationIT](src/test/java/com/github/hansonhsc/loan/quote/LoanQuoteApplicationIT.java) consists of a few
+simple tests that starts the application from the command line and verifying the application output. You can run them
+by:
 
 ```bash
 $ ./mvnw clean verify
