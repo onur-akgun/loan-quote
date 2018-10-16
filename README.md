@@ -101,6 +101,7 @@ each month due to extra or missing fractional pennies:*
         `finalMonthPayment = totalPayment - monthlyPayment * 35`
 0. The displayed loan rate is then calculated from the unrounded monthly repayment amount, loan amount and number of
 payment periods (36).
+    - **This is NOT the weighted average of each individual lender's rate.**
 
 ### Calculating the loan rate
 
