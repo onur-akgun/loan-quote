@@ -15,7 +15,7 @@ and the total repayment amount.
 
 ## Building the Loan Quote Calculator
 
-Ensure you have Java installed, then:
+Ensure you have Java Development Kit (JDK 8+) installed and `JAVA_HOME` environment variable is set, then:
 
 ```bash
 $ git clone https://github.com/hansonhsc/loan-quote.git
@@ -32,7 +32,7 @@ The Loan Quote Calculator can then be found in `target/loan-quote-[version].jar`
 Run `mvnw.cmd` instead of `mvnw`:
 
 ```bash
-$ ./mvnw.cmd clean install
+$ .\mvnw.cmd clean install
 ```
 
 ## Running the tests
@@ -78,11 +78,11 @@ it is not possible to provide a quote at that time.
 ### Example
 
 ```bash
-$ java -jar loan-quote.jar market.csv 1000
+$ java -jar target/loan-quote-0.1.0-SNAPSHOT.jar src/test/resources/market.csv 1000
 Requested amount: £1000
 Rate: 7.0%
-Monthly repayment: £30.78
-Total repayment: £1108.10
+Monthly repayment: £30.88
+Total repayment: £1111.65
 ```
 
 Repayment amounts are displayed to 2 decimal places and the rate of the loan is displayed to one decimal place.
