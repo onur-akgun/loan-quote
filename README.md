@@ -128,7 +128,7 @@ To calculate the loan rate, there is no readily available formula. However,
 [this article](https://blog.bossylobster.com/2012/05/reverse-calculating-interest-rate) does describe a method for
 doing this using Newton-Raphson method.
 
-However, do note that there is a slight mistake in this article when resolving the geometric series. The following
+Note that there is a slight mistake in this article when resolving the geometric series. The following
 is the algorithm used based on the method described in the article, with the mistake corrected.
 
 #### Identifying the variables
