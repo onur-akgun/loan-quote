@@ -94,16 +94,16 @@ public final class Lender {
 
     /**
      * Generated equals method
-     * @param o
-     * @return
+     * @param obj the referenced object with which to compare
+     * @return <code>true</code> if this object is the same as the <code>obj</code> argument; <code>false</code> otherwise.
      */
     @SuppressWarnings("SimplifiableIfStatement")
     @Override
-    public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public boolean equals(final Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
 
-        final Lender lender = (Lender) o;
+        final Lender lender = (Lender) obj;
 
         if (amount != lender.amount) return false;
         if (!name.equals(lender.name)) return false;
@@ -112,7 +112,7 @@ public final class Lender {
 
     /**
      * Generated hashCode method
-     * @return
+     * @return a hash code value for this object.
      */
     @Override
     public int hashCode() {
@@ -124,7 +124,7 @@ public final class Lender {
 
     /**
      * Generate toString method
-     * @return
+     * @return string representation of this object, for testing purposes.
      */
     @Override
     public String toString() {
