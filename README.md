@@ -2,7 +2,9 @@
 
 [![Build Status](https://travis-ci.com/hansonhsc/loan-quote.svg?branch=master)](https://travis-ci.com/hansonhsc/loan-quote)
 [![codecov](https://codecov.io/gh/hansonhsc/loan-quote/branch/master/graph/badge.svg)](https://codecov.io/gh/hansonhsc/loan-quote/branch/master)
+[![Maintainability](https://api.codeclimate.com/v1/badges/d6bb1e34b350d474baac/maintainability)](https://codeclimate.com/github/hansonhsc/loan-quote/maintainability)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![made-with-latex](https://img.shields.io/badge/Made%20with-LaTeX-1f425f.svg)](https://www.latex-project.org/)
 
 # Loan Quote Calculator
 
