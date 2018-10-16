@@ -139,7 +139,7 @@ Before we calculate the loan rate, let's establish what values we have and what 
 - number of monthly payments: let's call this the **term (![T](images/capital_t.gif))**
 - monthly payment: let's call this the **payment (![R](images/capital_r.gif))**
 - annual interest rate: let's call this the **interest rate (![r](images/r.gif))** - this is what we are trying to find out
-    - *Note the slight different in terminology here compared to the earlier formula from Wikipedia for calculating the
+    - *Note the slight difference in terminology here compared to the earlier formula from Wikipedia for calculating the
     monthly repayment, where ![r](images/r.gif) represented the monthly interest rate. Here, ![r](images/r.gif)
     represents the __annual__ interest rate.*
 
