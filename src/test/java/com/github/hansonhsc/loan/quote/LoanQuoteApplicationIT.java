@@ -17,6 +17,7 @@ public class LoanQuoteApplicationIT extends LoanQuoteApplicationTestCase {
                 file -> file.getName().startsWith("loan-quote-")
                         && file.getName().endsWith(".jar")
                         && !file.getName().endsWith("-sources.jar")
+                        && !file.getName().endsWith("-javadoc.jar")
         );
 
         assertNotNull(files, "Jar file found");
