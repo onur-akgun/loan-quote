@@ -45,7 +45,7 @@ $ ./mvnw clean test
 
 Note that [payments.csv](src/test/resources/payments.csv) is used in some of the unit tests as a lookup table
 of expected values of interest rate, principal and monthly repayments. This CSV file is generated using a LibreOffice
-Calc (any spreadsheet application should support this).
+Calc spreadsheet (any spreadsheet application, e.g. Excel, should support this).
 
 The formula used to generate the monthly repayment for the given interest rate and principal is:
 
